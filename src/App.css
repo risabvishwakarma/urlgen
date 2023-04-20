@@ -1,0 +1,13 @@
+#root {
+
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: aliceblue;
+  color: aliceblue;
+  text-align: center;
+}
+
+.formLabelName{
+color: rgb(30, 230, 230);
+    
+}

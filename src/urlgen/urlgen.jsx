@@ -143,7 +143,7 @@ const UrlGen = () => {
         <TextField
         style={{width:"400px"}}
         className="formLabelName"
-        multiline="true"
+       
         id="newurl"
         value={newUrl}
         type="text"

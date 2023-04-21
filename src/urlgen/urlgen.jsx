@@ -10,13 +10,13 @@ import {
   FormHelperText,
   colors,
 } from "@mui/material";
-import { Label } from "@mui/icons-material";
 
 const UrlGen = () => {
-  const [newUrl, setNewUrl] = React.useState("");
-  const [age, setAge] = React.useState("");
-  const [gender, setGender] = React.useState("");
-  const [zipcode, setZipCode] = React.useState("");
+  const [newUrl, setNewUrl] =React.useState("");
+  const[flagForNewUrl,setFlagForNewUrl]=React.useState(false)
+  // const [age, setAge] = React.useState("");
+  // const [gender, setGender] = React.useState("");
+  // const [zipcode, setZipCode] = React.useState("");
  
 
   const {
@@ -26,45 +26,44 @@ const UrlGen = () => {
   } = useForm();
   const handleRegistration = (data) => {
     setNewUrl("")
-    //   typeof data.url.split("&")
-    console.log(data)
-    let str = "";
-    data.url.split("&").forEach((value) => {
-      const Query_Param = value.split("=")[0];
-      if ( "e_token" === Query_Param) {
+    // console.log(data)
+    let temp_url = "";
+
+    
+    // data.url.split("&").forEach((value) => {
+    //   const Query_Param = value.split("=")[0];
+    //   if ( "e_token" === Query_Param) {
       
-        str+="&" + Query_Param + "=" + "123";
-      } else if ("e_uid" === Query_Param) {
-      
-        str=str + Query_Param + "=" + "53";
-      }else{
-        str+=value;
-      }
-    });
-    console.log(age.length)
-    if(age.length>0){
-        str=str+"&age="+age;
+    //     temp_url+="&" + Query_Param + "=" + "123";
+    //   } else if ("e_uid" === Query_Param) {
+        
+    //     temp_url+="&" + Query_Param + "=" + "53";
+    //   }else{
+    //     temp_url+=value;
+    //   }
+    // });
 
-    }
-    if(gender.length>0){
-        str=str+"&gender="+gender;
+  
+     //***************************************************************************************/
 
-    }
-    if(zipcode.length>0){
 
-        str=str+"&zip_code="+zipcode;
+    temp_url+=data.url.split("&e_token=")[0]+"&e_token="+"123456"+"&e_uid="+"65432"
 
-    }
-   
-    setNewUrl(str)
-    copy(str);
-    alert(`You have copied "${str}"`);
+    if((data.age=data.age.trim()).length>0)temp_url+="&age="+data.age;
+    if((data.gender=data.gender.trim()).length>0)temp_url+="&gender="+data.gender;
+    if((data.zipcode=data.zipcode.trim()).length>0)temp_url+="&zip_code="+data.zipcode;
+
+    setNewUrl(temp_url)
+    setFlagForNewUrl(temp_url.length>0)
+    copy(temp_url);
+    alert(`You have copied "${temp_url}"`);
+ 
    
   };
 
   return (
   <>
-  {age}
+
     <form onSubmit={handleSubmit(handleRegistration)}>
       <Box>
         <FormControl>
@@ -93,7 +92,9 @@ const UrlGen = () => {
             className="formLabelName"
             id="age"
             type="text"
-            onChange={(event)=>{setAge(event.target.value)}}
+            maxRows={1}
+            {...register("age", {required:false })}
+            // onChange={(event)=>{setAge(event.target.value.trim())}}
             placeholder="AGE"
             aria-describedby="url"
           />
@@ -106,7 +107,9 @@ const UrlGen = () => {
             className="formLabelName"
             id="gender"
             type="text"
-            onChange={(event)=>{setGender(event.target.value)}}
+            maxRows={1}
+            {...register("gender", {required:false, })}
+            // onChange={(event)=>{setGender(event.target.value.trim())}}
             placeholder="Gender"
             aria-describedby="gender"
           />
@@ -119,7 +122,9 @@ const UrlGen = () => {
             className="formLabelName"
             id="zipcode"
             type="text"
-            onChange={(event)=>{setZipCode(event.target.value)}}
+            maxRows={1}
+            {...register("zipcode", {required:false, })}
+            // onChange={(event)=>{setZipCode(event.target.value.trim())}}
             placeholder="ZIP CODE"
             aria-describedby="zip"
           />
@@ -127,18 +132,16 @@ const UrlGen = () => {
         <br />
         <br />
 
-
-
-        <button>Generate URL</button><br/><br/>
-         
-
-        < TextField
+        <button >Generate URL</button><br/><br/>
+         {flagForNewUrl &&
+        <TextField
         className="formLabelName"
         id="newurl"
         value={newUrl}
         type="text"
-        aria-describedby="url"
+        aria-describedby="newurl"
       />
+    }
       </Box>
     </form>
     </>

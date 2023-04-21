@@ -5,6 +5,8 @@
   background-color: aliceblue;
   color: aliceblue;
   text-align: center;
+  width: 500px;
+  border-radius: 10px;
 }
 
 .formLabelName{

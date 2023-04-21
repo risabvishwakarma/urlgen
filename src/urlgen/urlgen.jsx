@@ -67,7 +67,9 @@ const UrlGen = () => {
     <form onSubmit={handleSubmit(handleRegistration)}>
       <Box>
         <FormControl>
+       
           <TextField
+            style={{width:"400px"}}
             className="formLabelName"
             id="url"
             type="text"
@@ -89,6 +91,8 @@ const UrlGen = () => {
 
         <FormControl>
           <TextField
+          style={{width:"400px"}}
+          fullWidth
             className="formLabelName"
             id="age"
             type="text"
@@ -104,6 +108,7 @@ const UrlGen = () => {
 
         <FormControl>
           <TextField
+          style={{width:"400px"}}
             className="formLabelName"
             id="gender"
             type="text"
@@ -119,23 +124,26 @@ const UrlGen = () => {
         
         <FormControl>
           <TextField
+          style={{width:"400px"}}
             className="formLabelName"
             id="zipcode"
             type="text"
             maxRows={1}
             {...register("zipcode", {required:false, })}
             // onChange={(event)=>{setZipCode(event.target.value.trim())}}
-            placeholder="ZIP CODE"
+            placeholder="Zip Code"
             aria-describedby="zip"
           />
         </FormControl>
         <br />
         <br />
 
-        <button >Generate URL</button><br/><br/>
+        <button style={{width:"400px"}}>Generate URL</button><br/><br/>
          {flagForNewUrl &&
         <TextField
+        style={{width:"400px"}}
         className="formLabelName"
+        multiline="true"
         id="newurl"
         value={newUrl}
         type="text"

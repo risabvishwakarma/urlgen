@@ -56,7 +56,7 @@ const UrlGen = () => {
     setNewUrl(temp_url)
     setFlagForNewUrl(temp_url.length>0)
     copy(temp_url);
-    alert(`You have copied "${temp_url}"`);
+    // alert(`You have copied "${temp_url}"`);
  
    
   };

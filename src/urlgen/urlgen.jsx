@@ -3,16 +3,16 @@ import { useForm } from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import copy from "copy-to-clipboard";
-import { useSnackbar } from 'notistack';
+import { useSnackbar } from "notistack";
 import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import {
-  InputLabel,
+
   TextField,
-  Input,
+
   FormHelperText,
-  colors,
+
 } from "@mui/material";
 
 const UrlGen = () => {
@@ -22,9 +22,19 @@ const UrlGen = () => {
 
   const {
     register,
+    reset,
+    submittedData,
+    formState,
     handleSubmit,
-    formState: { errors },
+    formState: { isSubmitSuccessful, errors },
   } = useForm();
+
+  React.useEffect(() => {
+    if (formState.isSubmitSuccessful) {
+      reset({ something: '' });
+    }
+  }, [formState, submittedData, reset]);
+
   const handleRegistration = (data) => {
     setNewUrl("");
     let temp_url = "";
@@ -59,6 +69,7 @@ const UrlGen = () => {
               className="formLabelName"
               id="url"
               type="text"
+              
               placeholder="URL"
               {...register("url", { required: "Url is required" })}
               aria-describedby="url"
@@ -125,6 +136,7 @@ const UrlGen = () => {
           <br />
 
           <button style={{ width: "400px" }}>Generate URL</button>
+          
           <br />
           <br />
         </Box>
@@ -140,19 +152,32 @@ const UrlGen = () => {
                 className="ContentCopyIcon"
                 aria-label="toggle password visibility"
                 onClick={(e) => {
+                if(newUrl.trim().length>0){
                   copy(newUrl);
-                  enqueueSnackbar("copy sucessfully!",{
-                    variant: "success"
-                  })
+                  enqueueSnackbar("copy sucessfully!", {
+                    variant: "success",
+                  });}
                 }}
-                sx={{ cursor:"pointer" }}
+                sx={{ cursor: "pointer" }}
                 edge="end"
               />
             </InputAdornment>
           }
           className="formLabelName"
         />
-      )}
+        
+      )  }
+      <br/>
+      <br/>
+      {flagForNewUrl && ( <button onClick={()=>{
+        setNewUrl("")
+        setFlagForNewUrl(false)
+        reset()
+
+      }
+
+      } style={{ width: "400px",background:"red" }}>Reset</button>)}
+
     </>
   );
 };

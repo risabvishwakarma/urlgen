@@ -139,7 +139,7 @@ const UrlGen = () => {
           <br />
           <br />
 
-          <button style={{ width: "400px" }}>{flagForNewUrl?"Re-Generate URL":"Generate URL"}</button>
+          <button style={{ width: "400px",background:"black",color:"white" }}>{flagForNewUrl?"Re-Generate URL":"Generate URL"}</button>
           
           <br />
           <br />
@@ -180,7 +180,7 @@ const UrlGen = () => {
 
       }
 
-      } style={{ width: "400px",background:"red" }}>Reset</button>)}
+      } style={{ width: "400px",background:"red",color:"white"  }}>Reset</button>)}
 
     </>
   );

@@ -18,13 +18,15 @@
     "@mui/material": "^5.12.1",
     "gh": "^1.13.9",
     "global": "^4.4.0",
+    "notistack": "^2.0.8",
     "randomstring": "^1.2.3",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-datepicker": "^4.11.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
-    "react-select": "^5.7.2"
+    "react-select": "^5.7.2",
+    "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
     "@types/react": "^18.0.28",

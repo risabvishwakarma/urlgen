@@ -3,10 +3,10 @@ import { useForm } from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
 import copy from "copy-to-clipboard";
-
-import InputAdornment from '@mui/material/InputAdornment';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { useSnackbar } from 'notistack';
+import InputAdornment from "@mui/material/InputAdornment";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import {
   InputLabel,
   TextField,
@@ -18,7 +18,7 @@ import {
 const UrlGen = () => {
   const [newUrl, setNewUrl] = React.useState("");
   const [flagForNewUrl, setFlagForNewUrl] = React.useState(false);
-
+  const { enqueueSnackbar } = useSnackbar();
 
   const {
     register,
@@ -28,7 +28,6 @@ const UrlGen = () => {
   const handleRegistration = (data) => {
     setNewUrl("");
     let temp_url = "";
-
 
     temp_url +=
       data.url.split("&e_token=")[0] +
@@ -63,7 +62,6 @@ const UrlGen = () => {
               placeholder="URL"
               {...register("url", { required: "Url is required" })}
               aria-describedby="url"
-              
             />
             <FormHelperText
               id="name-warning"
@@ -131,25 +129,30 @@ const UrlGen = () => {
           <br />
         </Box>
       </form>
-      {flagForNewUrl &&  <OutlinedInput
-        id="outlined-adornment-password"
-        value={newUrl}
-        style={{width:"400px"}}
-      
-        endAdornment={
-          <InputAdornment position="end">
-            <ContentCopyIcon
-              aria-label="toggle password visibility"
-              onClick={(e)=>{copy(newUrl)}}
-             
-              edge="end"
-            >
-             
-            </ContentCopyIcon>
-          </InputAdornment>
-        }
-        label="Generated Url"
-      />}
+      {flagForNewUrl && (
+        <OutlinedInput
+          id="outlined-adornment-password"
+          value={newUrl}
+          style={{ width: "400px" }}
+          endAdornment={
+            <InputAdornment position="end">
+              <ContentCopyIcon
+                className="ContentCopyIcon"
+                aria-label="toggle password visibility"
+                onClick={(e) => {
+                  copy(newUrl);
+                  enqueueSnackbar("copy sucessfully!",{
+                    variant: "success"
+                  })
+                }}
+                sx={{ cursor:"pointer" }}
+                edge="end"
+              />
+            </InputAdornment>
+          }
+          className="formLabelName"
+        />
+      )}
     </>
   );
 };

@@ -9,6 +9,12 @@
   border-radius: 10px;
 
 }
+ContentCopyIcon:active{
+  transform: scale(0.96);
+}
+ContentCopyIcon{
+  color: rebeccapurple;
+}
 
 .formLabelName{
 color: rgb(30, 230, 230);

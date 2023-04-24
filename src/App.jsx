@@ -1,15 +1,13 @@
-
-
-import UrlGen from './urlgen/urlgen'
-import './App.css'
+import UrlGen from "./urlgen/urlgen";
+import "./App.css";
+import { SnackbarProvider } from "notistack";
 
 function App() {
-  
   return (
-
-    <UrlGen/>
-  
-  )
+    <SnackbarProvider maxSnack={3}>
+      <UrlGen />
+    </SnackbarProvider>
+  );
 }
 
-export default App
+export default App;

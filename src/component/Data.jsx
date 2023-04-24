@@ -1,2 +1,2 @@
-const Course=['B.Tech','M.Tech','Others']
+const Course=['M.Tech','Nokriii','Others']
 export default Course;

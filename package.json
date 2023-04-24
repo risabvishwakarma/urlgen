@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm install --force &&npm i @mui/material &&vite build",
+    "build": "npm install --force &&npm i @mui/material &&npm i  @mui/icons-material &&vite build",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.10.6",
     "@hookform/error-message": "^2.0.1",
     "@ionic/react": "^7.0.3",
+    "@mui/icons-material": "^5.11.16",
     "@mui/joy": "^5.0.0-alpha.76",
     "@mui/material": "^5.12.1",
     "gh": "^1.13.9",

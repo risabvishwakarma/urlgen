@@ -57,6 +57,10 @@ const UrlGen = () => {
     setNewUrl(temp_url);
     setFlagForNewUrl(temp_url.length > 0);
     copy(temp_url);
+    
+    enqueueSnackbar("Generated and copy sucessfully!", {
+      variant: "success",
+    });
   };
 
   return (
@@ -135,7 +139,7 @@ const UrlGen = () => {
           <br />
           <br />
 
-          <button style={{ width: "400px" }}>Generate URL</button>
+          <button style={{ width: "400px" }}>{flagForNewUrl?"Re-Generate URL":"Generate URL"}</button>
           
           <br />
           <br />
@@ -151,7 +155,7 @@ const UrlGen = () => {
               <ContentCopyIcon
                 className="ContentCopyIcon"
                 aria-label="toggle password visibility"
-                onClick={(e) => {
+                onClick={() => {
                 if(newUrl.trim().length>0){
                   copy(newUrl);
                   enqueueSnackbar("copy sucessfully!", {

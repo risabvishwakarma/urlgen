@@ -1,19 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import RegisterForm from './component/userform'
 
-import UrlGen from './urlgen/urlgen'
-import './App.css'
+import "./App.css";
+
+import RegisterForm from "./component/userform";
+import UserForm from "./component/spring-user-info";
 
 function App() {
-
-
   return (
-
-    <UrlGen/>
-  
-  )
+   
+      <UserForm/>
+ 
+  );
 }
 
 export default App

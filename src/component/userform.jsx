@@ -1,35 +1,70 @@
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import FormControl from "@mui/material/FormControl";
 import Box from "@mui/material/Box";
+// import StarIcon from "@mui/icons-material/Star";
+import Rating from "@mui/material/Rating";
+import NativeSelect from '@mui/material/NativeSelect';
+// import NativeSelectInput from "@mui/material/NativeSelect/NativeSelectInput";
+// import MenuItem from '@mui/material/MenuItem';
+import Slider from '@mui/material/Slider';
 
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormLabel from "@mui/material/FormLabel";
+// import ReactDatePicker from "react-datepicker";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import FormLabel from "@mui/material/FormLabel";
 import Course from "./Data";
+
 import { InputLabel, Input, FormHelperText, colors } from "@mui/material";
 
-
-
-import Radio, { radioClasses } from '@mui/joy/Radio';
-import RadioGroup from '@mui/joy/RadioGroup';
+import Radio, { radioClasses } from "@mui/joy/Radio";
+import RadioGroup from "@mui/joy/RadioGroup";
+// import { red } from "@mui/material/colors";
+// import { Reddit } from "@mui/icons-material";
+const labels = {
+  0.5: "Useless",
+  1: "Useless+",
+  1.5: "Poor",
+  2: "Poor+",
+  2.5: "Ok",
+  3: "Ok+",
+  3.5: "Good",
+  4: "Good+",
+  4.5: "Excellent",
+  5: "Excellent+",
+};
 
 const RegisterForm = () => {
-  const [value, setValue] = React.useState("");
-  const [visibility, setVisibility] = React.useState(false);
+  const [value, setValue] = React.useState(false);
+  const [hover, setHover] = React.useState(-1);
+  const [visibility, setVisibility] = React.useState(true);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    control,
+    watch,
+    setError,
   } = useForm();
-  const handleRegistration = (data) => console.log(data);
-  const handleRadioChange = (event) => {
-    setValue(event.target.value);
-    setHelperText(" ");
-    setError(false);
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const handleRegistration = async (data) => { sleep(2000)
+    if(data.ConfirmPassword!==data.password){setValue(true)
+    return false;}
+    console.log(data);
+  };
+
+  const onError = async (errors, e) => {
+    await sleep(2000);
+    console.log("Error : " + errors);
   };
   return (
-    <form onSubmit={handleSubmit(handleRegistration)}>
+    <form
+      onSubmit={handleSubmit(handleRegistration, onError)}
+      control={control}
+      action="/"
+      method="get"
+    >
       <Box>
         <FormControl>
           <InputLabel className="formLabelName" htmlFor="name-input">
@@ -79,7 +114,7 @@ const RegisterForm = () => {
 
         <FormControl>
           <InputLabel className="formLabelPassword" htmlFor="password-input">
-            Password{" "}
+            Password
           </InputLabel>
           <Input
             className="formLabelPassword"
@@ -91,6 +126,7 @@ const RegisterForm = () => {
                 value: 8,
                 message: "Password lenght shouldn't less than 8",
               },
+              pattern:""
             })}
             aria-describedby="password"
           />
@@ -107,7 +143,7 @@ const RegisterForm = () => {
         <br />
         <FormControl>
           <InputLabel className="formLabelPassword" htmlFor="password-input">
-            Phone{" "}
+            Phone
           </InputLabel>
           <Input
             className="formLabelPassword"
@@ -127,23 +163,180 @@ const RegisterForm = () => {
         <br />
 
         <FormControl>
-          <FormLabel>Focus</FormLabel>
-          <RadioGroup name="radio-buttons-group-focus" sx={{ my: 1 }}>
-            <Radio value="default" label="Default" />
-            <Radio
-              value="relative"
-              label="Position relative"
-              sx={{ [`& .${radioClasses.radio}`]: { position: "relative" } }}
-            />
-          </RadioGroup>
-          <FormHelperText>
-            Select an option and use keyboard ↑↓ to see the focus outline
+          <InputLabel className="formLabelPassword" htmlFor="password-input">
+            Confirm Password
+          </InputLabel>
+          <Controller
+            control={control}
+            name="ConfirmPassword"
+            rules={{
+              required: "Conferm Password is required",
+              
+           
+            // validate: (value, formValues) => {value !== formValues.password?setValue(true):setValue(false)}
+            // message:"jhbibii"
+              
+            
+            }}
+            render={({ field: { onChange, onBlur, value, ref ,watch} }) => (
+              <Input onChange={onChange} onBlur={onBlur} selected={value} />
+            )}
+          />
+          <FormHelperText
+            sx={{
+              color: "red",
+            }}
+          >
+            
+            {value && "password didn't match" }
+            
+            {errors?.ConfirmPassword && errors.ConfirmPassword.message}
           </FormHelperText>
         </FormControl>
+        <br />
+        <br />
+
+        <section>
+          <InputLabel
+            className="formLabelPassword"
+            onClick={() => {
+              setVisibility(!visibility);
+            }}
+            htmlFor="Radio-input"
+          >
+            What will you prefer?
+          </InputLabel>
+
+          <FormControl sx={{ alignItems: "flex-start" }}>
+            <Controller
+              control={control}
+              name="Radio"
+              rules={{ required: "Select atleast one" }}
+              render={({ field: { onChange, onBlur, value, ref } }) =>
+                visibility && (
+                  <RadioGroup
+                    onChange={onChange}
+                    onBlur={onBlur}
+                    selected={value}
+                  >
+                    <Radio label={Course[0]} value={Course[0]} />
+                    <Radio label={Course[1]} value={Course[1]} />
+                  </RadioGroup>
+                )
+              }
+            />
+            <FormHelperText
+              sx={{
+                color: "red",
+              }}
+            >
+              {errors?.Radio && errors.Radio.message}
+            </FormHelperText>
+          </FormControl>
+        </section><br/>
+
+        <section>
+          <FormControl>
+          <Controller
+          control={control}
+       
+          
+          name="Rating"
+          rules={{ required: "Please Give Rating" }}
+          render={({ field: { onChange, onBlur, value, ref } }) => (
+            <Rating
+            max={10}
+             onChange={onChange}
+              onBlur={onBlur} 
+              selected={value}
+              />
+          )}
+
+          />
+          <FormHelperText
+          sx={{
+            color: "red",
+          }}
+        >
+          {errors?.Rating && errors.Rating.message}
+        </FormHelperText>
+          </FormControl>
+        </section><br/>
+        <section>
+        <FormControl>
+        <InputLabel variant="standard" htmlFor="uncontrolled-native">
+        Age
+      </InputLabel>
+        <Controller
+        control={control}
+        name="Age"
+        defaultValue={''}
+        rules={{ required: "Please select Age",}}
+        render={({ field: { onChange, onBlur, value, ref } }) => (
+          <NativeSelect
+         
+            onChange={onChange}
+            onBlur={onBlur} 
+            selected={value}
+            
+          >
+          
+            <option value={10}>Ten</option>
+            <option value={20}>Twenty</option>
+            <option value={30}>Thirty</option>
+            <option value={40}>Fourty</option>
+          </NativeSelect>
+        )}
+
+        />
+        <FormHelperText
+        sx={{
+          color: "red",
+        }}
+      >
+        {errors?.Age && errors.Age.message}
+      </FormHelperText>
+        </FormControl>
+      </section>
+      <br />
+        <br />
+
+      <></>
+      <section>
+  
+        <InputLabel>MUI Slider</InputLabel>
+        <Controller
+          name="MUI_Slider"
+          control={control}
+          defaultValue={[0, 10]}
+         
+          render={({ field }) => (
+            <Slider
+              {...field}
+              onChange={(_, value) => {
+                field.onChange(value);
+              }}
+              valueLabelDisplay="auto"
+              max={10}
+              step={1}
+            />
+          )}
+              />
+        
+
+     
+      </section>
+
+        <br />
+        <br />
+
+
 
         <button>Submit</button>
       </Box>
     </form>
+
+    
   );
 };
 

@@ -1,26 +1,23 @@
-#root {
-
-  margin: 0 auto;
-  padding: 2rem;
+.url-gen-div {
+  margin: 0;
+  padding: 0rem 2rem 2rem 2rem;
   background-color: aliceblue;
   color: aliceblue;
   text-align: center;
-  width: 500px;
+  width: 400px;
   border-radius: 10px;
-
 }
-ContentCopyIcon:active{
+
+ContentCopyIcon:active {
   transform: scale(0.96);
 }
-ContentCopyIcon{
+ContentCopyIcon {
   color: rebeccapurple;
-  
 }
 
-.formLabelName{
-color: rgb(30, 230, 230);
-    
+.formLabelName {
+  color: rgb(30, 230, 230);
 }
-.radio_button_label.formLabelName{
+.radio_button_label.formLabelName {
   color: rgb(0, 0, 0);
 }
